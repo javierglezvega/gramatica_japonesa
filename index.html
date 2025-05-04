@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gramática japonesa</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="js/bloque_01.js" defer></script>
+  <script src="js/bloque_02.js" defer></script>
+  <script src="js/bloque_03.js" defer></script>
+  <script src="js/bloque_04.js" defer></script>
+  <script src="js/bloque_05.js" defer></script>
+  <script src="js/bloque_06.js" defer></script>
+  <script src="js/bloque_07.js" defer></script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    button {
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none;
+      background-clip: padding-box;
+    }
+    h1 {
+      text-align: center;
+	  font-size: 1rem;
+	  padding-bottom: 0.5rem;
+	  margin: 0.5rem;
+	  border-bottom: 1px solid black;
+    }
+    .seccion {
+      padding: 1rem;
+      padding-top: 0px;
+    }
+    .tipo-estudio {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1rem;
+    }
+    .tipo-btn {
+      flex: 1;
+      margin: 0 0.2rem;
+      padding: 1rem;
+      background: #d0d0f0;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      filter: brightness(90%);
+    }
+    .tipo-btn.activo {
+      filter: brightness(100%);
+    }
+    .bloque h2 {
+      margin-bottom: 0.5rem;
+	  font-size: .8rem;
+    }
+    .reticula-botones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      max-width: 100vw;
+    }
+    .boton-frase {
+      padding: 1rem;
+      background: #cce5ff;
+      border: none;
+      border-radius: 6px;
+      font-size: .8rem;
+      font-weight: bold;
+      word-wrap: break-word;
+      filter: brightness(90%);
+    }
+    .boton-frase.activo {
+      filter: brightness(100%);
+    }
+    #empezar-estudio {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: #4f6df5;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    #empezar-estudio.activo {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>GRAMÁTICA JAPONESA</h1>
+  <div id="pantalla-principal">
+    <div class="seccion bloque" id="bloques-contenedor"></div>
+    <div id="empezar-estudio">Empezar a estudiar</div>
+  </div>
+
+  <div id="pantalla-estudio" style="display:none; padding: 2rem; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <button id="volver-btn" style="background: #ccc; padding: 0.5rem 1rem; border-radius: 6px; border: none;">Volver</button>
+      <div id="contador" style="font-size: 0.9rem; color: #666;">Frases estudiadas: 0/15</div>
+    </div>
+    <div id="frase-jp" style="font-size: 1.8rem; margin-bottom: 1rem;"></div>
+    <div id="frase-es" style="font-size: 1.2rem; margin-bottom: 2rem; color: #333; display:none;"></div>
+    <button id="repetir-audio" style="display:none; font-size: 0.9rem; background: #ddd; padding: 0.5rem 1rem; border: none; border-radius: 5px;">Volver a escuchar</button>
+    <button id="revelar-btn" style="display:none; position: fixed; bottom: 0; left: 0; right: 0; padding: 1rem; background: #4f6df5; color: white; border: none; font-weight: bold;">REVELAR</button>
+  </div>
+
+  <script>
+    const tipoBtns = document.querySelectorAll('.tipo-btn');
+    let tipoSeleccionado = "LEE";
+    const seleccionados = new Set();
+
+    tipoBtns.forEach(btn => {
+      btn.addEventListener('mousedown', () => {
+        if (!btn.classList.contains('activo')) {
+          tipoBtns.forEach(b => b.classList.remove('activo'));
+          btn.classList.add('activo');
+          tipoSeleccionado = btn.dataset.tipo;
+        }
+      });
+      btn.addEventListener('touchstart', e => {
+        e.preventDefault();
+        if (!btn.classList.contains('activo')) {
+          tipoBtns.forEach(b => b.classList.remove('activo'));
+          btn.classList.add('activo');
+          tipoSeleccionado = btn.dataset.tipo;
+        }
+      });
+    });
+
+    function actualizarBotonEstudio() {
+      const boton = document.getElementById('empezar-estudio');
+      if (seleccionados.size > 0) {
+        boton.classList.add('activo');
+      } else {
+        boton.classList.remove('activo');
+      }
+    }
+
+    function crearBloque(nombreBloque, listas) {
+      const contenedor = document.getElementById('bloques-contenedor');
+      const seccion = document.createElement('div');
+      const titulo = document.createElement('h2');
+      titulo.textContent = nombreBloque;
+      seccion.appendChild(titulo);
+
+      const reticula = document.createElement('div');
+      reticula.className = 'reticula-botones';
+
+      listas.forEach((lista) => {
+        const btn = document.createElement('button');
+        btn.className = 'boton-frase';
+        btn.textContent = lista.nombre;
+
+        btn.addEventListener('mousedown', () => {
+          const activo = btn.classList.toggle('activo');
+          if (activo) {
+            seleccionados.add(lista);
+          } else {
+            seleccionados.delete(lista);
+          }
+          actualizarBotonEstudio();
+        });
+
+        btn.addEventListener('touchstart', e => {
+          e.preventDefault();
+		  // Desactiva todos los botones y vacía la selección
+		  document.querySelectorAll('.boton-frase').forEach(b => b.classList.remove('activo'));
+		  seleccionados.clear();
+
+		  // Activa solo el actual
+		  btn.classList.add('activo');
+		  seleccionados.add(lista);
+		  actualizarBotonEstudio();
+          
+        });
+
+        reticula.appendChild(btn);
+      });
+
+      seccion.appendChild(reticula);
+      contenedor.appendChild(seccion);
+    }
+
+    let todasLasFrases = [];
+    let indice = 0;
+    let modo = "LEE";
+
+    document.getElementById("empezar-estudio").addEventListener("click", () => {
+      if (!document.getElementById("empezar-estudio").classList.contains("activo")) return;
+      iniciarEstudio();
+    });
+
+    function iniciarEstudio() {
+		todasLasFrases = [];
+		seleccionados.forEach(lista => {
+		  todasLasFrases.push(...lista.frases);
+		});
+
+		// Mezclar aleatoriamente
+		for (let i = todasLasFrases.length - 1; i > 0; i--) {
+		  const j = Math.floor(Math.random() * (i + 1));
+		  [todasLasFrases[i], todasLasFrases[j]] = [todasLasFrases[j], todasLasFrases[i]];
+		}
+      
+		const primerModo = [...seleccionados][0].modo;
+		if (![...seleccionados].every(l => l.modo === primerModo)) {
+		  alert("Todas las listas seleccionadas deben tener el mismo modo de estudio.");
+		  return;
+		}
+		modo = primerModo;
+      
+      indice = 0;
+      document.getElementById("pantalla-principal").style.display = "none";
+      document.getElementById("pantalla-estudio").style.display = "block";
+      document.getElementById("empezar-estudio").style.display = "none";
+      document.getElementById("revelar-btn").style.display = "block";
+      mostrarFrase();
+    }
+
+    document.getElementById("volver-btn").onclick = () => {
+      document.getElementById("pantalla-estudio").style.display = "none";
+      document.getElementById("pantalla-principal").style.display = "block";
+      document.getElementById("empezar-estudio").style.display = "block";
+      indice = 0;
+    };
+
+    function mostrarFrase() {
+		const frase = todasLasFrases.shift();
+		if (!frase) {
+		  document.getElementById("frase-jp").textContent = "";
+		  document.getElementById("frase-es").textContent = "¡Has terminado esta sesión!";
+		  document.getElementById("revelar-btn").style.display = "none";
+		  document.getElementById("repetir-audio").style.display = "none";
+		  return;
+		}
+      const jp = document.getElementById("frase-jp");
+      const es = document.getElementById("frase-es");
+      const contador = document.getElementById("contador");
+      const repetirBtn = document.getElementById("repetir-audio");
+      const audio = new Audio(frase.audio);
+
+      jp.style.display = "block";
+      es.style.display = "none";
+      repetirBtn.style.display = "none";
+      document.getElementById("revelar-btn").textContent = "REVELAR";
+
+      if (modo === "LEE") {
+        const fuentes = [
+          { name: '"Noto Sans JP"', weight: [300, 400, 700] },
+          { name: '"Noto Serif JP"', weight: [300, 400, 700] },
+          { name: '"M PLUS Rounded 1c"', weight: [300, 400, 700] }
+        ];
+        const fuente = fuentes[Math.floor(Math.random() * fuentes.length)];
+        const peso = fuente.weight[Math.floor(Math.random() * fuente.weight.length)];
+        jp.textContent = frase.jp;
+        jp.style.fontFamily = fuente.name;
+        jp.style.fontWeight = peso;
+      } else if (modo === "TRADUCE") {
+        jp.textContent = frase.es;
+        jp.style.fontFamily = "";
+      } else if (modo === "ESCUCHA") {
+        jp.textContent = "Reproduciendo audio...";
+        repetirBtn.style.display = "inline-block";
+        repetirBtn.onclick = () => audio.play();
+        audio.play();
+      }
+
+	es.textContent =
+	  (modo === "LEE") ? frase.es :
+	  (modo === "TRADUCE") ? frase.jp :
+	  `${frase.jp}\n${frase.es}`;
+      contador.textContent = `Frases estudiadas: ${indice}/15`;
+
+      document.getElementById("revelar-btn").onclick = () => {
+		  if (es.style.display === "none") {
+		    es.style.display = "block";
+		    audio.play(); // Se reproduce el audio en cualquier modo
+		    document.getElementById("revelar-btn").textContent = "SIGUIENTE";
+		    contador.textContent = `Frases estudiadas: ${++indice}/15`;
+		  } else {
+          mostrarFrase();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

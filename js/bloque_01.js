@@ -1,0 +1,70 @@
+// js/bloque_01.js
+
+crearBloque("LUNES", [
+  {
+    id: "b1-l1",
+    nombre: "TRADUCE",
+	modo: "TRADUCE",
+    frases: [
+{jp:"わたしは先生です。", es:"Yo soy profesor.", audio: "audios/001_01.mp3"},
+{jp:"あなたは学生です。", es:"Tú eres estudiante.", audio: "audios/001_02.mp3"},
+{jp:"これは本です。", es:"Esto es un libro.", audio: "audios/001_03.mp3"},
+{jp:"あれは山です。", es:"Aquello es una montaña.", audio: "audios/001_04.mp3"},
+{jp:"それは車です。", es:"Eso es un coche.", audio: "audios/001_05.mp3"},
+{jp:"いぬは大きいです。", es:"El perro es grande.", audio: "audios/001_06.mp3"},
+{jp:"ねこは小さいです。", es:"El gato es pequeño.", audio: "audios/001_07.mp3"},
+{jp:"この人は田中さんです。", es:"Esta persona es el señor Tanaka.", audio: "audios/001_08.mp3"},
+{jp:"母は医者です。", es:"Mi madre es doctora.", audio: "audios/001_09.mp3"},
+{jp:"父はエンジニアです。", es:"Mi padre es ingeniero.", audio: "audios/001_10.mp3"},
+{jp:"あの人は日本人です。", es:"Aquella persona es japonesa.", audio: "audios/001_11.mp3"},
+{jp:"この学生は元気です。", es:"Este estudiante está bien.", audio: "audios/001_12.mp3"},
+{jp:"パンはおいしいです。", es:"El pan está rico.", audio: "audios/001_13.mp3"},
+{jp:"コーヒーはあついです。", es:"El café está caliente.", audio: "audios/001_14.mp3"},
+{jp:"みずはつめたいです。", es:"El agua está fría.", audio: "audios/001_15.mp3"},
+    ]
+  },
+  {
+    id: "b1-l2",
+    nombre: "LEE",
+	modo: "LEE",
+    frases: [
+{jp:"わたしのかばんはあたらしいです。", es:"Mi bolso es nuevo.", audio: "audios/001_16.mp3"},
+{jp:"そのつくえは大きいです。", es:"Ese escritorio es grande.", audio: "audios/001_17.mp3"},
+{jp:"このへやはきれいです。", es:"Esta habitación está limpia.", audio: "audios/001_18.mp3"},
+{jp:"まどはあいています。", es:"La ventana está abierta.", audio: "audios/001_19.mp3"},
+{jp:"ドアはしまっています。", es:"La puerta está cerrada.", audio: "audios/001_20.mp3"},
+{jp:"これはわたしの本です。", es:"Este es mi libro.", audio: "audios/001_21.mp3"},
+{jp:"あの人は私の友だちです。", es:"Aquella persona es mi amigo.", audio: "audios/001_22.mp3"},
+{jp:"にほんはきれいな国です。", es:"Japón es un país bonito.", audio: "audios/001_23.mp3"},
+{jp:"このまちはにぎやかです。", es:"Esta ciudad es animada.", audio: "audios/001_24.mp3"},
+{jp:"あなたのへやはひろいです。", es:"Tu habitación es espaciosa.", audio: "audios/001_25.mp3"},
+{jp:"そのえいがはおもしろいです。", es:"Esa película es interesante.", audio: "audios/001_26.mp3"},
+{jp:"あれは古い学校です。", es:"Aquello es una escuela antigua.", audio: "audios/001_27.mp3"},
+{jp:"このネコはかわいいです。", es:"Este gato es lindo.", audio: "audios/001_28.mp3"},
+{jp:"いぬはしずかです。", es:"El perro es tranquilo.", audio: "audios/001_29.mp3"},
+{jp:"かれは高校生です。", es:"Él es estudiante de secundaria.", audio: "audios/001_30.mp3"},
+    ]
+  },
+  {
+    id: "b1-l3",
+    nombre: "ESCUCHA",
+	modo: "ESCUCHA",
+    frases: [
+{jp:"かのじょは大学生です。", es:"Ella es universitaria.", audio: "audios/001_31.mp3"},
+{jp:"これは魚です。", es:"Esto es pescado.", audio: "audios/001_32.mp3"},
+{jp:"ごはんはあたたかいです。", es:"El arroz está templado.", audio: "audios/001_33.mp3"},
+{jp:"おちゃはにがいです。", es:"El té es amargo.", audio: "audios/001_34.mp3"},
+{jp:"このみせはゆうめいです。", es:"Esta tienda es famosa.", audio: "audios/001_35.mp3"},
+{jp:"あのレストランはおいしいです。", es:"Aquel restaurante es bueno.", audio: "audios/001_36.mp3"},
+{jp:"このえほんはたのしいです。", es:"Este cuento es divertido.", audio: "audios/001_37.mp3"},
+{jp:"そちらはわたしの席です。", es:"Ese es mi asiento.", audio: "audios/001_38.mp3"},
+{jp:"このかさは赤いです。", es:"Este paraguas es rojo.", audio: "audios/001_39.mp3"},
+{jp:"そのぼうしは青いです。", es:"Ese sombrero es azul.", audio: "audios/001_40.mp3"},
+{jp:"このズボンはながいです。", es:"Estos pantalones son largos.", audio: "audios/001_41.mp3"},
+{jp:"あれは私のかぎです。", es:"Aquello es mi llave.", audio: "audios/001_42.mp3"},
+{jp:"このかべは白いです。", es:"Esta pared es blanca.", audio: "audios/001_43.mp3"},
+{jp:"あのいえはたかいです。", es:"Aquella casa es cara.", audio: "audios/001_44.mp3"},
+{jp:"わたしはスペイン人です。", es:"Soy español.", audio: "audios/001_45.mp3"},
+    ]
+  },
+]);
